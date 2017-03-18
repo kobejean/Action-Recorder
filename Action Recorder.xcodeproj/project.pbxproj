@@ -7,12 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F17557B1B4DFC4B00DB5FA5 /* CaptureViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F17557A1B4DFC4B00DB5FA5 /* CaptureViewToolbar.swift */; };
+		0F17557D1B4DFDAC00DB5FA5 /* CaptureViewMultiPurposeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F17557C1B4DFDAC00DB5FA5 /* CaptureViewMultiPurposeButton.swift */; };
 		0F42CF6B1B3A1044008D4601 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42CF6A1B3A1044008D4601 /* AppDelegate.swift */; };
-		0F42CF6D1B3A1044008D4601 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42CF6C1B3A1044008D4601 /* ViewController.swift */; };
+		0F42CF6D1B3A1044008D4601 /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42CF6C1B3A1044008D4601 /* CaptureViewController.swift */; };
 		0F42CF701B3A1044008D4601 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F42CF6E1B3A1044008D4601 /* Main.storyboard */; };
 		0F42CF721B3A1044008D4601 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F42CF711B3A1044008D4601 /* Images.xcassets */; };
 		0F42CF751B3A1044008D4601 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F42CF731B3A1044008D4601 /* LaunchScreen.xib */; };
-		0F42CF811B3A1044008D4601 /* Action_RecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42CF801B3A1044008D4601 /* Action_RecorderTests.swift */; };
+		0F42CF8C1B3A1127008D4601 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F42CF8A1B3A1127008D4601 /* AssetsLibrary.framework */; };
+		0F42CF8D1B3A1127008D4601 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F42CF8B1B3A1127008D4601 /* AVFoundation.framework */; };
+		0F42CF8F1B3A1E78008D4601 /* CapturePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42CF8E1B3A1E78008D4601 /* CapturePreviewView.swift */; };
+		0F42CF911B3BA3BD008D4601 /* CaptureInterestPointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42CF901B3BA3BD008D4601 /* CaptureInterestPointerView.swift */; };
+		0F6706031B53840A00AEDF9B /* CaptureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F6706021B53840A00AEDF9B /* CaptureViewController.xib */; };
+		0F6706051B5496A000AEDF9B /* Nibs.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F6706041B5496A000AEDF9B /* Nibs.xcassets */; };
+		0FC346851B43372F00E1B108 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC346841B43372F00E1B108 /* CoreGraphics.framework */; };
+		0FC346871B43373800E1B108 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FC346861B43373800E1B108 /* QuartzCore.framework */; };
+		0FD68B571B462B7E00C00F90 /* ProjectEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD68B561B462B7E00C00F90 /* ProjectEditorViewController.swift */; };
+		0FD68B5F1B47ACDE00C00F90 /* ProjectPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD68B5E1B47ACDE00C00F90 /* ProjectPreviewViewController.swift */; };
+		0FD68B611B47B4EA00C00F90 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD68B601B47B4EA00C00F90 /* Project.swift */; };
+		0FD68B631B4A20FB00C00F90 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD68B621B4A20FB00C00F90 /* Utilities.swift */; };
+		0FD68B651B4A310600C00F90 /* ProjectEditorTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD68B641B4A310600C00F90 /* ProjectEditorTimeline.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +40,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F17557A1B4DFC4B00DB5FA5 /* CaptureViewToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewToolbar.swift; sourceTree = "<group>"; };
+		0F17557C1B4DFDAC00DB5FA5 /* CaptureViewMultiPurposeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewMultiPurposeButton.swift; sourceTree = "<group>"; };
 		0F42CF651B3A1044008D4601 /* Action Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Action Recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F42CF691B3A1044008D4601 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F42CF6A1B3A1044008D4601 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0F42CF6C1B3A1044008D4601 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0F42CF6C1B3A1044008D4601 /* CaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CaptureViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		0F42CF6F1B3A1044008D4601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0F42CF711B3A1044008D4601 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0F42CF741B3A1044008D4601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		0F42CF7A1B3A1044008D4601 /* Action RecorderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Action RecorderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0F42CF7F1B3A1044008D4601 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0F42CF801B3A1044008D4601 /* Action_RecorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action_RecorderTests.swift; sourceTree = "<group>"; };
+		0F42CF8A1B3A1127008D4601 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		0F42CF8B1B3A1127008D4601 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0F42CF8E1B3A1E78008D4601 /* CapturePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CapturePreviewView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0F42CF901B3BA3BD008D4601 /* CaptureInterestPointerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CaptureInterestPointerView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		0F6706021B53840A00AEDF9B /* CaptureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CaptureViewController.xib; sourceTree = "<group>"; };
+		0F6706041B5496A000AEDF9B /* Nibs.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Nibs.xcassets; sourceTree = "<group>"; };
+		0FC346841B43372F00E1B108 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0FC346861B43373800E1B108 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0FD68B561B462B7E00C00F90 /* ProjectEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProjectEditorViewController.swift; sourceTree = "<group>"; };
+		0FD68B5E1B47ACDE00C00F90 /* ProjectPreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectPreviewViewController.swift; sourceTree = "<group>"; };
+		0FD68B601B47B4EA00C00F90 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		0FD68B621B4A20FB00C00F90 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		0FD68B641B4A310600C00F90 /* ProjectEditorTimeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ProjectEditorTimeline.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +70,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FC346871B43373800E1B108 /* QuartzCore.framework in Frameworks */,
+				0FC346851B43372F00E1B108 /* CoreGraphics.framework in Frameworks */,
+				0F42CF8C1B3A1127008D4601 /* AssetsLibrary.framework in Frameworks */,
+				0F42CF8D1B3A1127008D4601 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,8 +90,11 @@
 		0F42CF5C1B3A1044008D4601 = {
 			isa = PBXGroup;
 			children = (
+				0FC346861B43373800E1B108 /* QuartzCore.framework */,
+				0FC346841B43372F00E1B108 /* CoreGraphics.framework */,
+				0F42CF8A1B3A1127008D4601 /* AssetsLibrary.framework */,
+				0F42CF8B1B3A1127008D4601 /* AVFoundation.framework */,
 				0F42CF671B3A1044008D4601 /* Action Recorder */,
-				0F42CF7D1B3A1044008D4601 /* Action RecorderTests */,
 				0F42CF661B3A1044008D4601 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,10 +111,21 @@
 		0F42CF671B3A1044008D4601 /* Action Recorder */ = {
 			isa = PBXGroup;
 			children = (
+				0FD68B621B4A20FB00C00F90 /* Utilities.swift */,
 				0F42CF6A1B3A1044008D4601 /* AppDelegate.swift */,
-				0F42CF6C1B3A1044008D4601 /* ViewController.swift */,
+				0F42CF6C1B3A1044008D4601 /* CaptureViewController.swift */,
+				0F6706021B53840A00AEDF9B /* CaptureViewController.xib */,
+				0F42CF8E1B3A1E78008D4601 /* CapturePreviewView.swift */,
+				0F42CF901B3BA3BD008D4601 /* CaptureInterestPointerView.swift */,
+				0F17557A1B4DFC4B00DB5FA5 /* CaptureViewToolbar.swift */,
+				0F17557C1B4DFDAC00DB5FA5 /* CaptureViewMultiPurposeButton.swift */,
+				0FD68B561B462B7E00C00F90 /* ProjectEditorViewController.swift */,
+				0FD68B641B4A310600C00F90 /* ProjectEditorTimeline.swift */,
+				0FD68B5E1B47ACDE00C00F90 /* ProjectPreviewViewController.swift */,
+				0FD68B601B47B4EA00C00F90 /* Project.swift */,
 				0F42CF6E1B3A1044008D4601 /* Main.storyboard */,
 				0F42CF711B3A1044008D4601 /* Images.xcassets */,
+				0F6706041B5496A000AEDF9B /* Nibs.xcassets */,
 				0F42CF731B3A1044008D4601 /* LaunchScreen.xib */,
 				0F42CF681B3A1044008D4601 /* Supporting Files */,
 			);
@@ -91,23 +136,6 @@
 			isa = PBXGroup;
 			children = (
 				0F42CF691B3A1044008D4601 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0F42CF7D1B3A1044008D4601 /* Action RecorderTests */ = {
-			isa = PBXGroup;
-			children = (
-				0F42CF801B3A1044008D4601 /* Action_RecorderTests.swift */,
-				0F42CF7E1B3A1044008D4601 /* Supporting Files */,
-			);
-			path = "Action RecorderTests";
-			sourceTree = "<group>";
-		};
-		0F42CF7E1B3A1044008D4601 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0F42CF7F1B3A1044008D4601 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -156,15 +184,18 @@
 		0F42CF5D1B3A1044008D4601 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = mobileuse;
 				TargetAttributes = {
 					0F42CF641B3A1044008D4601 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = Q74A2VY23K;
+						LastSwiftMigration = 0820;
 					};
 					0F42CF791B3A1044008D4601 = {
 						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = 0F42CF641B3A1044008D4601;
 					};
 				};
 			};
@@ -193,8 +224,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F42CF701B3A1044008D4601 /* Main.storyboard in Resources */,
+				0F6706031B53840A00AEDF9B /* CaptureViewController.xib in Resources */,
 				0F42CF751B3A1044008D4601 /* LaunchScreen.xib in Resources */,
 				0F42CF721B3A1044008D4601 /* Images.xcassets in Resources */,
+				0F6706051B5496A000AEDF9B /* Nibs.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,8 +245,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F42CF6D1B3A1044008D4601 /* ViewController.swift in Sources */,
+				0FD68B5F1B47ACDE00C00F90 /* ProjectPreviewViewController.swift in Sources */,
+				0F42CF8F1B3A1E78008D4601 /* CapturePreviewView.swift in Sources */,
+				0F42CF6D1B3A1044008D4601 /* CaptureViewController.swift in Sources */,
+				0F17557D1B4DFDAC00DB5FA5 /* CaptureViewMultiPurposeButton.swift in Sources */,
+				0F17557B1B4DFC4B00DB5FA5 /* CaptureViewToolbar.swift in Sources */,
+				0FD68B651B4A310600C00F90 /* ProjectEditorTimeline.swift in Sources */,
+				0F42CF911B3BA3BD008D4601 /* CaptureInterestPointerView.swift in Sources */,
+				0FD68B571B462B7E00C00F90 /* ProjectEditorViewController.swift in Sources */,
 				0F42CF6B1B3A1044008D4601 /* AppDelegate.swift in Sources */,
+				0FD68B631B4A20FB00C00F90 /* Utilities.swift in Sources */,
+				0FD68B611B47B4EA00C00F90 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +263,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F42CF811B3A1044008D4601 /* Action_RecorderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,14 +309,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -313,8 +357,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -333,6 +379,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -342,9 +389,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Action Recorder/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileuse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -352,16 +405,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Action Recorder/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileuse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		0F42CF881B3A1044008D4601 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -373,14 +431,12 @@
 				INFOPLIST_FILE = "Action RecorderTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Action Recorder.app/Action Recorder";
 			};
 			name = Debug;
 		};
 		0F42CF891B3A1044008D4601 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -388,7 +444,6 @@
 				INFOPLIST_FILE = "Action RecorderTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Action Recorder.app/Action Recorder";
 			};
 			name = Release;
 		};
@@ -411,6 +466,7 @@
 				0F42CF861B3A1044008D4601 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0F42CF871B3A1044008D4601 /* Build configuration list for PBXNativeTarget "Action RecorderTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +475,7 @@
 				0F42CF891B3A1044008D4601 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
