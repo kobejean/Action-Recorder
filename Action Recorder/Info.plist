@@ -42,5 +42,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This app will use the camera for taking pictures of your animation frames.</string>
 </dict>
 </plist>

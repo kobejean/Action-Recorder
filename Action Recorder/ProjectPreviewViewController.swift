@@ -29,7 +29,7 @@ class ProjectPreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
-        self.view.contentMode = UIViewContentMode.scaleAspectFit
+        self.view.contentMode = UIView.ContentMode.scaleAspectFit
         //project.delegate = self
     }
     

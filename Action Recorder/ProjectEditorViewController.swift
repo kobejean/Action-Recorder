@@ -82,12 +82,12 @@ class ProjectEditorViewController: UIViewController, ProjectAnimationFrameSpecif
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProjectPreviewEmbededSegue" {
-            projectPreviewViewController = segue.destination as! ProjectPreviewViewController
+            projectPreviewViewController = (segue.destination as! ProjectPreviewViewController)
             projectPreviewViewController.project = project
             
         }
         if segue.identifier == "CaptureEmbededSegue" {
-            captureViewController = segue.destination as! CaptureViewController
+            captureViewController = (segue.destination as! CaptureViewController)
             captureViewController.delegate = self
         }
     }

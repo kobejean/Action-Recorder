@@ -29,9 +29,9 @@ class CapturePreviewView: UIView {
         let devicePoint = CGPoint(x: 0.5, y: 0.5)
         self.pointer = CaptureInterestPointerView(devicePoint: devicePoint, inView: self)
         self.layer.addSublayer(overlayLayer)
-        self.layer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        self.layer.videoGravity = AVLayerVideoGravity(rawValue: convertFromAVLayerVideoGravity(AVLayerVideoGravity.resizeAspectFill))
         overlayLayer.opacity = 0.5
-        overlayLayer.contentsGravity = kCAGravityResizeAspectFill
+        overlayLayer.contentsGravity = CALayerContentsGravity.resizeAspectFill
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +40,7 @@ class CapturePreviewView: UIView {
         self.pointer = CaptureInterestPointerView(devicePoint: devicePoint, inView: self)
         self.layer.addSublayer(overlayLayer)
         overlayLayer.opacity = 0.5
-        overlayLayer.contentsGravity = kCAGravityResizeAspect
+        overlayLayer.contentsGravity = CALayerContentsGravity.resizeAspect
         //self.addSubview(self.pointerView)
     }
     
@@ -67,7 +67,7 @@ class CapturePreviewView: UIView {
         }
         
         get {
-            return self.layer.session
+            return self.layer.session!
         }
     }
     
@@ -80,17 +80,22 @@ class CapturePreviewView: UIView {
     var videoOrientation: AVCaptureVideoOrientation! {
         set {
             if self.layer.connection != nil {
-                self.layer.connection.videoOrientation = newValue
+                self.layer.connection!.videoOrientation = newValue
                 
             }else{print("connection == nil \n could not set connection.videoOrientation \n videoOrientation: set()")}
         }
         
         get {
             if self.layer.connection != nil {
-                return self.layer.connection.videoOrientation
+                return self.layer.connection!.videoOrientation
             }else{print("connection == nil \n could not get connection.videoOrientation \n videoOrientation: get()")}
             return nil
         }
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
+	return input.rawValue
 }

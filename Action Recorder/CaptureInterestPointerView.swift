@@ -205,8 +205,8 @@ class CaptureInterestPointerView: UIView {
             animation.fromValue = _shapeLayer.path// we are pretending that the path hasnt changed yet
             animation.duration = _shapeLayerAnimationDuration
             // 3
-            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut) // animation curve is Ease Out
-            animation.fillMode = kCAFillModeBoth // keep to value after finishing
+            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut) // animation curve is Ease Out
+            animation.fillMode = CAMediaTimingFillMode.both // keep to value after finishing
             animation.isRemovedOnCompletion = false // don't remove after finishing
             // 4
             _shapeLayer.add(animation, forKey: animation.keyPath)
@@ -259,7 +259,7 @@ class CaptureInterestPointerView: UIView {
             if self.superview != nil {
                 //self.superview?.removeConstraints(self.constraints())
                 //println("layer.height:\(self.superview?.layer.bounds.height) view.height:\(self.superview?.frame.height)")
-                let coordinateInterestPoint = self.superview!.layer.pointForCaptureDevicePoint(ofInterest: devicePoint)
+                let coordinateInterestPoint = self.superview!.layer.layerPointConverted(fromCaptureDevicePoint: devicePoint)
                 var proportionalPoint = CGPoint(x: coordinateInterestPoint.x/self.superview!.frame.width, y: coordinateInterestPoint.y/self.superview!.frame.height)
                 
                 //pointForCaptureDevicePointOfInterest not accurate so use devicePoint
@@ -279,16 +279,16 @@ class CaptureInterestPointerView: UIView {
                 
                 self.translatesAutoresizingMaskIntoConstraints = false
                 
-                let centerXConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self.superview, attribute: NSLayoutAttribute.right, multiplier: proportionalPoint.x, constant: 0)
+                let centerXConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.superview, attribute: NSLayoutConstraint.Attribute.right, multiplier: proportionalPoint.x, constant: 0)
                 centerXConstraint.identifier = "centerXConstraint"
                 
-                let centerYConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self.superview, attribute: NSLayoutAttribute.bottom, multiplier: proportionalPoint.y, constant: 0)
+                let centerYConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.superview, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: proportionalPoint.y, constant: 0)
                 centerXConstraint.identifier = "centerYConstraint"
                 
-                let widthConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 0, constant: width)
+                let widthConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 0, constant: width)
                 centerXConstraint.identifier = "widthConstraint"
                 
-                let heightConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 0, constant: height)
+                let heightConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 0, constant: height)
                 centerXConstraint.identifier = "centerXConstraint"
                 
                 self.removeConstraintIfNeedsReplaced(self._centerXConstraint)

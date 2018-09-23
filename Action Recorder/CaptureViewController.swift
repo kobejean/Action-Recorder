@@ -169,11 +169,11 @@ class CaptureViewController: UIViewController {
     
     let session = AVCaptureSession()
     var sessionQueue: DispatchQueue! = nil
-    var deviceInput = AVCaptureDeviceInput()
+    var deviceInput: AVCaptureDeviceInput! = nil
     var device: AVCaptureDevice! = nil
-    fileprivate var _deviceSupportedFocusModes: [CaptureFocusMode : AVCaptureFocusMode?]! = nil
-    fileprivate var _deviceSupportedExposureModes: [CaptureExposureMode : AVCaptureExposureMode?]! = nil
-    fileprivate var _deviceSupportedWhiteBalanceModes: [CaptureWhiteBalanceMode : AVCaptureWhiteBalanceMode?]! = nil
+    fileprivate var _deviceSupportedFocusModes: [CaptureFocusMode : AVCaptureDevice.FocusMode?]! = nil
+    fileprivate var _deviceSupportedExposureModes: [CaptureExposureMode : AVCaptureDevice.ExposureMode?]! = nil
+    fileprivate var _deviceSupportedWhiteBalanceModes: [CaptureWhiteBalanceMode : AVCaptureDevice.WhiteBalanceMode?]! = nil
     //var movieFileOutput = AVCaptureMovieFileOutput()
     var stillImageOutput = AVCaptureStillImageOutput()
     
@@ -198,7 +198,7 @@ class CaptureViewController: UIViewController {
     
     var lockInterfaceRotation: Bool = false
     var deviceAuthorized: Bool = false
-    var backgroundRecordingID = UIBackgroundTaskIdentifier()
+    var backgroundRecordingID = UIBackgroundTaskIdentifier(rawValue: 0)
     var runtimeErrorHandlingObserver: AnyObject? = nil
     var sessionRunningAndDeviceAuthorized: Bool {
             return self.session.isRunning && self.deviceAuthorized
@@ -287,7 +287,7 @@ class CaptureViewController: UIViewController {
     //MARK: |   UIViewController
     
     override func loadView() {
-        view = Bundle.main.loadNibNamed("CaptureViewController", owner: self, options: nil)?.first as! UIView
+        view = Bundle.main.loadNibNamed("CaptureViewController", owner: self, options: nil)?.first as? UIView
 
     }
     
@@ -324,7 +324,7 @@ class CaptureViewController: UIViewController {
         // -[AVCaptureSession startRunning] is a blocking call which can take a long time. We dispatch session setup to the sessionQueue so that the main queue isn't blocked (which keeps the UI responsive).
         self.sessionQueue = DispatchQueue(label: "session queue", attributes: [])
         self.sessionQueue.async(execute: {
-            self.backgroundRecordingID = UIBackgroundTaskInvalid
+            self.backgroundRecordingID = UIBackgroundTaskIdentifier.invalid
             
             self.beginSession()
             
@@ -434,7 +434,7 @@ class CaptureViewController: UIViewController {
                 }
             })
         }else if context == &ExposureDurationContext {
-            guard let newTimeValue = (newValue as AnyObject).timeValue else {print("ExposureDurationContext \((newValue as AnyObject).timeValue)");return}
+            guard let newTimeValue = (newValue as AnyObject).timeValue else {print("ExposureDurationContext \(String(describing: (newValue as AnyObject).timeValue))");return}
             
             DispatchQueue.main.async(execute: {
                 if self.exposureMode != .locked {
@@ -454,7 +454,7 @@ class CaptureViewController: UIViewController {
         }else if context == &ExposureTargetOffsetContext {
         }else if context == &DeviceWhiteBalanceGainsContext {
             let newGains = device.deviceWhiteBalanceGains
-            let newTempAndTint = device.temperatureAndTintValues(forDeviceWhiteBalanceGains: newGains)
+            let newTempAndTint = device.temperatureAndTintValues(for: newGains)
             DispatchQueue.main.async(execute: {
                 if self.whiteBalanceMode != .locked {
                     self._WBSVTempSlider.value = newTempAndTint.temperature
@@ -490,8 +490,8 @@ class CaptureViewController: UIViewController {
     }
     
     func checkDeviceAuthorizationStatus() {
-        let mediaType = AVMediaTypeVideo
-        AVCaptureDevice.requestAccess(forMediaType: mediaType, completionHandler: {(granted) -> Void in
+        let mediaType = convertFromAVMediaType(AVMediaType.video)
+        AVCaptureDevice.requestAccess(for: AVMediaType(rawValue: mediaType), completionHandler: {(granted) -> Void in
             if (granted){
                 self.deviceAuthorized = true
             }else{
@@ -501,8 +501,8 @@ class CaptureViewController: UIViewController {
                     let message = "\(appName) doesn't have permission to use Camera, please change privacy settings"
                     let cancelButtonTitle = "OK"
                     
-                    let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-                    let cancelAction = UIAlertAction(title: cancelButtonTitle, style: UIAlertActionStyle.cancel, handler: {(action) in})
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+                    let cancelAction = UIAlertAction(title: cancelButtonTitle, style: UIAlertAction.Style.cancel, handler: {(action) in})
                     
                     alertController.addAction(cancelAction)
                     
@@ -578,16 +578,16 @@ class CaptureViewController: UIViewController {
     
     // MARK: |   Actions
     
-    func subjectAreaDidChange(_: Notification!){
+    @objc func subjectAreaDidChange(_: Notification!){
         let devicePoint : CGPoint = CGPoint(x: 0.5, y: 0.5)
         self.moveAutoPoint(devicePoint)
     }
     
     @IBAction func longPressLock(_ sender: UIGestureRecognizer) {
-        if (sender.state == UIGestureRecognizerState.began){
+        if (sender.state == UIGestureRecognizer.State.began){
             let interestPoint = sender.location(in: sender.view)
-            let devicePoint = self.previewView.layer.captureDevicePointOfInterest(for: interestPoint)
-            self.focusWithMode(AVCaptureFocusMode.autoFocus, exposureMode: AVCaptureExposureMode.autoExpose, devicePoint: devicePoint)
+            let devicePoint = self.previewView.layer.captureDevicePointConverted(fromLayerPoint: interestPoint)
+            self.focusWithMode(AVCaptureDevice.FocusMode.autoFocus, exposureMode: AVCaptureDevice.ExposureMode.autoExpose, devicePoint: devicePoint)
             self.previewView.pointer.locked = true
             self.focusMode = .locked
             self.exposureMode = .locked
@@ -604,7 +604,7 @@ class CaptureViewController: UIViewController {
     
     @IBAction func tapFocus(_ sender: UIGestureRecognizer){
         let tapLocation = sender.location(in: sender.view)
-        let devicePoint = self.previewView.layer.captureDevicePointOfInterest(for: tapLocation)
+        let devicePoint = self.previewView.layer.captureDevicePointConverted(fromLayerPoint: tapLocation)
         switch _SVControl.selectedSegmentIndex {
         case 0:// focus
             switch focusMode! {
@@ -632,7 +632,7 @@ class CaptureViewController: UIViewController {
                 focusWithMode(nil, exposureMode: nil, devicePoint: devicePoint)
                 do {
                     try device.lockForConfiguration()
-                    device.setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains(device.grayWorldDeviceWhiteBalanceGains, completionHandler: nil)
+                    device.setWhiteBalanceModeLocked(with: device.grayWorldDeviceWhiteBalanceGains, completionHandler: nil)
                     device.unlockForConfiguration()
                 } catch{print(error);return}
             case .auto:
@@ -674,17 +674,17 @@ class CaptureViewController: UIViewController {
 
     @IBAction func captureStillPhoto() {
         self.sessionQueue.async(execute: {
-                let connection = self.stillImageOutput.connection(withMediaType: AVMediaTypeVideo)
+                let connection = self.stillImageOutput.connection(with: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video)))
                 if connection != nil &&  self.previewView.connection != nil{
                     // Update the orientation on the still image output video connection before capturing.
                     connection?.videoOrientation = self.previewView.videoOrientation
                     // Flash set to Auto for Still Capture
                     //self.setFlashMode
-                    self.stillImageOutput.captureStillImageAsynchronously(from: connection){
+                    self.stillImageOutput.captureStillImageAsynchronously(from: connection!){
                         (imageSampleBuffer, error) in
                         
                         if((imageSampleBuffer) != nil){
-                            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageSampleBuffer)
+                            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageSampleBuffer!)
                             let image: UIImage = UIImage(data: imageData!)!
                             
                             let orientation = image.imageOrientation
@@ -692,7 +692,7 @@ class CaptureViewController: UIViewController {
                             //self.project.appendAnimationFrame(AnimationFrame(image: CGImageOrientation(image.CGImage, orientation), frameCountDuration: 2))
                             ALAssetsLibrary().writeImage(toSavedPhotosAlbum: image.cgImage, orientation: ALAssetOrientation(rawValue: image.imageOrientation.rawValue)!, completionBlock: { (path:URL?, error:Error?) -> Void in
                                 // photo saved
-                                print("\(path)")
+                                print("\(String(describing: path))")
                             })
                         }
                         else{print("imageSampleBuffer == nil \n could not complete captureStillPhoto() \n captureStillPhoto()")}
@@ -722,7 +722,7 @@ class CaptureViewController: UIViewController {
     @IBAction func changeLensPosition(_ sender: UISlider) {
         do {
             try device.lockForConfiguration()
-            device.setFocusModeLockedWithLensPosition(sender.value, completionHandler: nil)
+            device.setFocusModeLocked(lensPosition: sender.value, completionHandler: nil)
             device.unlockForConfiguration()
         }
         catch {
@@ -734,7 +734,7 @@ class CaptureViewController: UIViewController {
     @IBAction func changeISO(_ sender: UISlider) {
         do {
             try device.lockForConfiguration()
-            device.setExposureModeCustomWithDuration(_CMTimeFromValue(_ESVDurationSlider.value), iso: sender.value, completionHandler: nil)
+            device.setExposureModeCustom(duration: _CMTimeFromValue(_ESVDurationSlider.value), iso: sender.value, completionHandler: nil)
             device.unlockForConfiguration()
         }
         catch {
@@ -746,7 +746,7 @@ class CaptureViewController: UIViewController {
     @IBAction func changeDuration(_ sender: UISlider) {
         do {
             try device.lockForConfiguration()
-            device.setExposureModeCustomWithDuration(_CMTimeFromValue(sender.value) , iso: _ESVISOSlider.value, completionHandler: nil)
+            device.setExposureModeCustom(duration: _CMTimeFromValue(sender.value) , iso: _ESVISOSlider.value, completionHandler: nil)
             device.unlockForConfiguration()
         }
         catch {
@@ -756,12 +756,12 @@ class CaptureViewController: UIViewController {
     }
     
     @IBAction func changeTemperature(_ sender: UISlider) {
-        let tempAndTint = AVCaptureWhiteBalanceTemperatureAndTintValues(temperature: _WBSVTempSlider.value, tint: _WBSVTintSlider.value)
+        let tempAndTint = AVCaptureDevice.WhiteBalanceTemperatureAndTintValues(temperature: _WBSVTempSlider.value, tint: _WBSVTintSlider.value)
         let wbgains = _gainsForTempAandTint(tempAndTint)
 
         do {
             try device.lockForConfiguration()
-            device.setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains(_normalizeGains(wbgains), completionHandler: nil)
+            device.setWhiteBalanceModeLocked(with: _normalizeGains(wbgains), completionHandler: nil)
             device.unlockForConfiguration()
         }
         catch {
@@ -771,12 +771,12 @@ class CaptureViewController: UIViewController {
     }
     
     @IBAction func changeTint(_ sender: UISlider) {
-        let tempAndTint = AVCaptureWhiteBalanceTemperatureAndTintValues(temperature: _WBSVTempSlider.value, tint: _WBSVTintSlider.value)
+        let tempAndTint = AVCaptureDevice.WhiteBalanceTemperatureAndTintValues(temperature: _WBSVTempSlider.value, tint: _WBSVTintSlider.value)
         let wbgains = _gainsForTempAandTint(tempAndTint)
         
         do {
             try device.lockForConfiguration()
-            device.setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains(_normalizeGains(wbgains), completionHandler: nil)
+            device.setWhiteBalanceModeLocked(with: _normalizeGains(wbgains), completionHandler: nil)
             device.unlockForConfiguration()
         }
         catch {
@@ -887,11 +887,10 @@ class CaptureViewController: UIViewController {
     
     func beginSession() {
         //device
-        let device = self.deviceWithMediaType(AVMediaTypeVideo as NSString!, preferredPosition: .back)
-        
+        let device = self.deviceWithMediaType(convertFromAVMediaType(AVMediaType.video) as NSString, preferredPosition: .back)
         var deviceInput: AVCaptureDeviceInput! = nil
         do {
-            deviceInput = try AVCaptureDeviceInput(device: device)
+            deviceInput = try AVCaptureDeviceInput(device: device!)
             
         } catch {
             //video device error
@@ -909,7 +908,9 @@ class CaptureViewController: UIViewController {
                 // Note: As an exception to the above rule, it is not necessary to serialize video orientation changes on the AVCaptureVideoPreviewLayer’s connection with other session manipulation.
                 self.previewView.videoOrientation = AVCaptureVideoOrientation(ui:UIApplication.shared.statusBarOrientation)
             })
-        }else{print("self.session.canAddInput(deviceInput) == false \n could not addInput(deviceInput) \n viewDidLoad")}
+        }else{
+            print("self.session.canAddInput(deviceInput) == false \n could not addInput(deviceInput) \n viewDidLoad")
+        }
     }
     
     //MARK: |   Device Configuration
@@ -928,41 +929,41 @@ class CaptureViewController: UIViewController {
         _deviceSupportedWhiteBalanceModes = [.locked : nil, .tap : nil, .auto : nil]
         guard device != nil else {print("device was nil");return}
         if device.isFocusModeSupported(.locked) {
-            _deviceSupportedFocusModes[.locked] = AVCaptureFocusMode.locked
+            _deviceSupportedFocusModes[.locked] = AVCaptureDevice.FocusMode.locked
         }
         if device.isFocusModeSupported(.autoFocus) {
-            _deviceSupportedFocusModes[.tap] = AVCaptureFocusMode.autoFocus
+            _deviceSupportedFocusModes[.tap] = AVCaptureDevice.FocusMode.autoFocus
         }
         if device.isFocusModeSupported(.continuousAutoFocus) {
-            _deviceSupportedFocusModes[.auto] = AVCaptureFocusMode.continuousAutoFocus
+            _deviceSupportedFocusModes[.auto] = AVCaptureDevice.FocusMode.continuousAutoFocus
         }else if device.isFocusModeSupported(.autoFocus){
-            _deviceSupportedFocusModes[.auto] = AVCaptureFocusMode.autoFocus
+            _deviceSupportedFocusModes[.auto] = AVCaptureDevice.FocusMode.autoFocus
         }
         
         if device.isExposureModeSupported(.locked) {
-            _deviceSupportedExposureModes[.locked] = AVCaptureExposureMode.locked
+            _deviceSupportedExposureModes[.locked] = AVCaptureDevice.ExposureMode.locked
         }
         if device.isExposureModeSupported(.autoExpose) {
-            _deviceSupportedExposureModes[.tap] = AVCaptureExposureMode.autoExpose
+            _deviceSupportedExposureModes[.tap] = AVCaptureDevice.ExposureMode.autoExpose
         }
         if device.isExposureModeSupported(.continuousAutoExposure) {
-            _deviceSupportedExposureModes[.auto] = AVCaptureExposureMode.continuousAutoExposure
+            _deviceSupportedExposureModes[.auto] = AVCaptureDevice.ExposureMode.continuousAutoExposure
         }else if device.isExposureModeSupported(.autoExpose){
-            _deviceSupportedExposureModes[.auto] = AVCaptureExposureMode.autoExpose
+            _deviceSupportedExposureModes[.auto] = AVCaptureDevice.ExposureMode.autoExpose
         }
         
         if device.isWhiteBalanceModeSupported(.locked) {
-            _deviceSupportedWhiteBalanceModes[.locked] = AVCaptureWhiteBalanceMode.locked
+            _deviceSupportedWhiteBalanceModes[.locked] = AVCaptureDevice.WhiteBalanceMode.locked
         }
         if device.isWhiteBalanceModeSupported(.autoWhiteBalance) {
-            _deviceSupportedWhiteBalanceModes[.tap] = AVCaptureWhiteBalanceMode.autoWhiteBalance
+            _deviceSupportedWhiteBalanceModes[.tap] = AVCaptureDevice.WhiteBalanceMode.autoWhiteBalance
         }else if device.isWhiteBalanceModeSupported(.locked) {
-            _deviceSupportedWhiteBalanceModes[.tap] = AVCaptureWhiteBalanceMode.locked
+            _deviceSupportedWhiteBalanceModes[.tap] = AVCaptureDevice.WhiteBalanceMode.locked
         }
         if device.isWhiteBalanceModeSupported(.continuousAutoWhiteBalance) {
-            _deviceSupportedWhiteBalanceModes[.auto] = AVCaptureWhiteBalanceMode.continuousAutoWhiteBalance
+            _deviceSupportedWhiteBalanceModes[.auto] = AVCaptureDevice.WhiteBalanceMode.continuousAutoWhiteBalance
         }else if device.isWhiteBalanceModeSupported(.autoWhiteBalance){
-            _deviceSupportedWhiteBalanceModes[.auto] = AVCaptureWhiteBalanceMode.autoWhiteBalance
+            _deviceSupportedWhiteBalanceModes[.auto] = AVCaptureDevice.WhiteBalanceMode.autoWhiteBalance
         }
     }
     
@@ -977,7 +978,7 @@ class CaptureViewController: UIViewController {
         })
     }
     
-    func focusWithMode(_ focusMode:AVCaptureFocusMode?, exposureMode:AVCaptureExposureMode?, devicePoint:CGPoint) {
+    func focusWithMode(_ focusMode:AVCaptureDevice.FocusMode?, exposureMode:AVCaptureDevice.ExposureMode?, devicePoint:CGPoint) {
         //xself.previewView.pointer.moveInterestPointerTo(devicePoint)
         self.sessionQueue.async(execute: {
             guard let device = self.device else{print("device nil");return}
@@ -1021,16 +1022,13 @@ class CaptureViewController: UIViewController {
         })
     }
     
-    func deviceWithMediaType(_ mediaType:NSString!, preferredPosition:AVCaptureDevicePosition) -> AVCaptureDevice! {
-        let devices = AVCaptureDevice.devices(withMediaType: mediaType as String)
-        if let captureDevice = devices?.first as? AVCaptureDevice {
-            for object in devices! {
-                //if object is AVCaptureDevice
-                if let device = object as? AVCaptureDevice {
-                    //if device position is preferred position use that device
-                    if device.position == preferredPosition {
-                        return device
-                    }
+    func deviceWithMediaType(_ mediaType:NSString!, preferredPosition:AVCaptureDevice.Position) -> AVCaptureDevice! {
+        let devices = AVCaptureDevice.devices(for: AVMediaType(rawValue: mediaType as String as String))
+        if let captureDevice = devices.first {
+            for device in devices {
+                //if device position is preferred position use that device
+                if device.position == preferredPosition {
+                    return device
                 }
                 else{NSLog("if let device = object as? AVCaptureDevice failed \n deviceWithMediaType()", "")}
             }
@@ -1067,7 +1065,7 @@ class CaptureViewController: UIViewController {
         self._WBSVTintValueLabel.text = "\(Int(value))"
     }
     
-    private func _normalizeGains(_ g:AVCaptureWhiteBalanceGains) -> AVCaptureWhiteBalanceGains{
+    private func _normalizeGains(_ g:AVCaptureDevice.WhiteBalanceGains) -> AVCaptureDevice.WhiteBalanceGains{
         var g = g
         //print("\(g)")
         g.redGain = max( 1.0, g.redGain )
@@ -1089,7 +1087,7 @@ class CaptureViewController: UIViewController {
         //estimateGains
         var eMaxGains = _normalizeGains(cGains)
         //estimateTempAndTint
-        var eMaxTempAndTint: AVCaptureWhiteBalanceTemperatureAndTintValues {
+        var eMaxTempAndTint: AVCaptureDevice.WhiteBalanceTemperatureAndTintValues {
             get {
                 return _tempAndTintForGains(eMaxGains)
             }
@@ -1122,7 +1120,7 @@ class CaptureViewController: UIViewController {
         //estimateGains
         var eMinGains = _normalizeGains(cGains)
         //estimateTempAndTint
-        var eMinTempAndTint: AVCaptureWhiteBalanceTemperatureAndTintValues {
+        var eMinTempAndTint: AVCaptureDevice.WhiteBalanceTemperatureAndTintValues {
             get {
                 return _tempAndTintForGains(eMinGains)
             }
@@ -1152,7 +1150,7 @@ class CaptureViewController: UIViewController {
         }
     }
     
-    fileprivate func _gainsInRange(_ gains:AVCaptureWhiteBalanceGains) -> Bool {
+    fileprivate func _gainsInRange(_ gains:AVCaptureDevice.WhiteBalanceGains) -> Bool {
         let maxGain = device.maxWhiteBalanceGain
         let redIsFine = (1.0 <= gains.redGain && gains.redGain <= maxGain)
         let greenIsFine = (1.0 <= gains.greenGain && gains.greenGain <= maxGain)
@@ -1160,11 +1158,11 @@ class CaptureViewController: UIViewController {
         return redIsFine && greenIsFine && blueIsFine
     }
     
-    fileprivate func _tempAndTintForGains(_ gains:AVCaptureWhiteBalanceGains) -> AVCaptureWhiteBalanceTemperatureAndTintValues {
-        return device.temperatureAndTintValues(forDeviceWhiteBalanceGains: gains)
+    fileprivate func _tempAndTintForGains(_ gains:AVCaptureDevice.WhiteBalanceGains) -> AVCaptureDevice.WhiteBalanceTemperatureAndTintValues {
+        return device.temperatureAndTintValues(for: gains)
     }
     
-    fileprivate func _gainsForTempAandTint(_ tempAndTint:AVCaptureWhiteBalanceTemperatureAndTintValues) -> AVCaptureWhiteBalanceGains {
+    fileprivate func _gainsForTempAandTint(_ tempAndTint:AVCaptureDevice.WhiteBalanceTemperatureAndTintValues) -> AVCaptureDevice.WhiteBalanceGains {
         return device.deviceWhiteBalanceGains(for: tempAndTint)
     }
     
@@ -1174,7 +1172,7 @@ class CaptureViewController: UIViewController {
         let maxDurationSeconds = CMTimeGetSeconds( self.device.activeFormat.maxExposureDuration );
         let newDurationSeconds = p * ( maxDurationSeconds - minDurationSeconds ) + minDurationSeconds; // Scale from 0-1 slider range to actual duration
         //print("to Time:\(CMTimeMakeWithSeconds( newDurationSeconds, 1000*1000*1000 ))")
-        return CMTimeMakeWithSeconds( newDurationSeconds, 1000*1000*1000 )
+        return CMTimeMakeWithSeconds( newDurationSeconds, preferredTimescale: 1000*1000*1000 )
     }
     
     fileprivate func _valueFromCMTime(_ time: CMTime) -> Float {
@@ -1187,18 +1185,23 @@ class CaptureViewController: UIViewController {
     }
     
     // avfocusmode for focusmode
-    fileprivate func _AVFocusModeForFocusMode(_ focusMode:CaptureFocusMode) -> AVCaptureFocusMode{
-        guard let focusMode = _deviceSupportedFocusModes[focusMode]! else{print("supportedMode \(_deviceSupportedFocusModes)");return device.focusMode}
+    fileprivate func _AVFocusModeForFocusMode(_ focusMode:CaptureFocusMode) -> AVCaptureDevice.FocusMode{
+        guard let focusMode = _deviceSupportedFocusModes[focusMode]! else{print("supportedMode \(String(describing: _deviceSupportedFocusModes))");return device.focusMode}
         return focusMode
     }
 
-    fileprivate func _AVExposureModeForExposureMode(_ exposureMode:CaptureExposureMode) -> AVCaptureExposureMode{
-        guard let supportedMode = _deviceSupportedExposureModes[exposureMode]! else{print("supportedMode \(_deviceSupportedExposureModes)");return device.exposureMode}
+    fileprivate func _AVExposureModeForExposureMode(_ exposureMode:CaptureExposureMode) -> AVCaptureDevice.ExposureMode{
+        guard let supportedMode = _deviceSupportedExposureModes[exposureMode]! else{print("supportedMode \(String(describing: _deviceSupportedExposureModes))");return device.exposureMode}
         return supportedMode
     }
 
-    fileprivate func _AVWhiteBalanceModeForWhiteBalanceMode(_ whiteBalanceMode:CaptureWhiteBalanceMode) -> AVCaptureWhiteBalanceMode{
-        guard let supportedMode = _deviceSupportedWhiteBalanceModes[whiteBalanceMode]! else{print("supportedMode \(_deviceSupportedWhiteBalanceModes)");return device.whiteBalanceMode}
+    fileprivate func _AVWhiteBalanceModeForWhiteBalanceMode(_ whiteBalanceMode:CaptureWhiteBalanceMode) -> AVCaptureDevice.WhiteBalanceMode{
+        guard let supportedMode = _deviceSupportedWhiteBalanceModes[whiteBalanceMode]! else{print("supportedMode \(String(describing: _deviceSupportedWhiteBalanceModes))");return device.whiteBalanceMode}
         return supportedMode
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVMediaType(_ input: AVMediaType) -> String {
+	return input.rawValue
 }

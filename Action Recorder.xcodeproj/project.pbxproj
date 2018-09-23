@@ -29,16 +29,6 @@
 		0FD68B651B4A310600C00F90 /* ProjectEditorTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD68B641B4A310600C00F90 /* ProjectEditorTimeline.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		0F42CF7B1B3A1044008D4601 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0F42CF5D1B3A1044008D4601 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0F42CF641B3A1044008D4601;
-			remoteInfo = "Action Recorder";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0F17557A1B4DFC4B00DB5FA5 /* CaptureViewToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewToolbar.swift; sourceTree = "<group>"; };
 		0F17557C1B4DFDAC00DB5FA5 /* CaptureViewMultiPurposeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureViewMultiPurposeButton.swift; sourceTree = "<group>"; };
@@ -49,7 +39,6 @@
 		0F42CF6F1B3A1044008D4601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0F42CF711B3A1044008D4601 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0F42CF741B3A1044008D4601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		0F42CF7A1B3A1044008D4601 /* Action RecorderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Action RecorderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F42CF8A1B3A1127008D4601 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		0F42CF8B1B3A1127008D4601 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0F42CF8E1B3A1E78008D4601 /* CapturePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CapturePreviewView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -77,13 +66,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0F42CF771B3A1044008D4601 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -103,7 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				0F42CF651B3A1044008D4601 /* Action Recorder.app */,
-				0F42CF7A1B3A1044008D4601 /* Action RecorderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,24 +141,6 @@
 			productReference = 0F42CF651B3A1044008D4601 /* Action Recorder.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0F42CF791B3A1044008D4601 /* Action RecorderTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0F42CF871B3A1044008D4601 /* Build configuration list for PBXNativeTarget "Action RecorderTests" */;
-			buildPhases = (
-				0F42CF761B3A1044008D4601 /* Sources */,
-				0F42CF771B3A1044008D4601 /* Frameworks */,
-				0F42CF781B3A1044008D4601 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0F42CF7C1B3A1044008D4601 /* PBXTargetDependency */,
-			);
-			name = "Action RecorderTests";
-			productName = "Action RecorderTests";
-			productReference = 0F42CF7A1B3A1044008D4601 /* Action RecorderTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -186,16 +149,13 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = mobileuse;
 				TargetAttributes = {
 					0F42CF641B3A1044008D4601 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = Q74A2VY23K;
-						LastSwiftMigration = 0820;
-					};
-					0F42CF791B3A1044008D4601 = {
-						CreatedOnToolsVersion = 6.3.2;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -213,7 +173,6 @@
 			projectRoot = "";
 			targets = (
 				0F42CF641B3A1044008D4601 /* Action Recorder */,
-				0F42CF791B3A1044008D4601 /* Action RecorderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -228,13 +187,6 @@
 				0F42CF751B3A1044008D4601 /* LaunchScreen.xib in Resources */,
 				0F42CF721B3A1044008D4601 /* Images.xcassets in Resources */,
 				0F6706051B5496A000AEDF9B /* Nibs.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0F42CF781B3A1044008D4601 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,22 +211,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0F42CF761B3A1044008D4601 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0F42CF7C1B3A1044008D4601 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0F42CF641B3A1044008D4601 /* Action Recorder */;
-			targetProxy = 0F42CF7B1B3A1044008D4601 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0F42CF6E1B3A1044008D4601 /* Main.storyboard */ = {
@@ -304,14 +241,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -319,7 +264,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -352,14 +297,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -397,7 +350,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileuse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -413,37 +367,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mobileuse.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		0F42CF881B3A1044008D4601 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Action RecorderTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		0F42CF891B3A1044008D4601 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Action RecorderTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -464,15 +389,6 @@
 			buildConfigurations = (
 				0F42CF851B3A1044008D4601 /* Debug */,
 				0F42CF861B3A1044008D4601 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0F42CF871B3A1044008D4601 /* Build configuration list for PBXNativeTarget "Action RecorderTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0F42CF881B3A1044008D4601 /* Debug */,
-				0F42CF891B3A1044008D4601 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

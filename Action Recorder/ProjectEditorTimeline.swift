@@ -31,7 +31,10 @@ protocol TimelineDelegate {
     func timelineIndexChanged(_ index:Int?)
 }
 
-infix operator ~= { associativity none precedence 130 }
+precedencegroup IncludesTimePrecedence {
+    associativity: none
+}
+infix operator ~= : IncludesTimePrecedence
 func ~= (left: TOVThreshold, right: CGFloat) -> Bool {
     return left.start <= right && right < left.end
 }
@@ -74,7 +77,7 @@ class ProjectEditorTimeline: UIScrollView, UIScrollViewDelegate, ProjectAnimatio
         super.init(coder: aDecoder)
         self.contentInset.left = frame.width/2
         self.contentInset.right = frame.width/2
-        self.decelerationRate = 0.99
+        self.decelerationRate = UIScrollView.DecelerationRate(rawValue: 0.99)
         self.delegate = self
         
         // captureFrameView
@@ -112,7 +115,7 @@ class ProjectEditorTimeline: UIScrollView, UIScrollViewDelegate, ProjectAnimatio
     }
     
     func projectAddedAnimationFrames(selectedRange: CountableRange<Int>, changedRange: CountableRange<Int>) {
-        for index in CountableRange<Int>(changedRange) {
+        for index in changedRange {
             let frame = self.animation.frames[index]
             let timelineObjectView = TOV()
             timelineObjectView.frameCountDuration = frame.frameCountDuration
@@ -124,14 +127,14 @@ class ProjectEditorTimeline: UIScrollView, UIScrollViewDelegate, ProjectAnimatio
     
     func projectModifiedAnimationFrames(selectedRange: CountableRange<Int>, changedRange: CountableRange<Int>, updateType: ProjectAnimationFrameUpdateTypes) {
         if updateType == ProjectAnimationFrameUpdateTypes.ModifyStartTime {
-            for index in CountableRange<Int>(changedRange)  {
+            for index in changedRange  {
                 let frame = self.animation.frames[index]
                 tovs[index].frameCountStartTime = frame.frameCountStartTime
                 updateFrameForTOV(index)
             }
         }
         if updateType == ProjectAnimationFrameUpdateTypes.ModifyDuration {
-            for index in CountableRange<Int>(changedRange)  {
+            for index in changedRange  {
                 let frame = self.animation.frames[index]
                 tovs[index].frameCountDuration = frame.frameCountDuration
                 updateFrameForTOV(index)

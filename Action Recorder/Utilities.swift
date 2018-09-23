@@ -8,26 +8,26 @@
 
 import UIKit
 
-func CGImageOrientation(_ originalCGImage: CGImage, orientation: UIImageOrientation) -> CGImage {
+func CGImageOrientation(_ originalCGImage: CGImage, orientation: UIImage.Orientation) -> CGImage {
     let imageSize = CGSize(width: CGFloat(originalCGImage.width), height: CGFloat(originalCGImage.height))
     var rotatedSize: CGSize! = nil
     var radians = 0.0
     switch (orientation) {
-    case UIImageOrientation.up, UIImageOrientation.upMirrored:
+    case UIImage.Orientation.up, UIImage.Orientation.upMirrored:
         radians = 0.0;
         break;
-    case UIImageOrientation.left, UIImageOrientation.leftMirrored:
-        radians = -M_PI_2;
+    case UIImage.Orientation.left, UIImage.Orientation.leftMirrored:
+        radians = -Double.pi / 2;
         break;
-    case UIImageOrientation.right, UIImageOrientation.rightMirrored:
-        radians = M_PI_2;
+    case UIImage.Orientation.right, UIImage.Orientation.rightMirrored:
+        radians = Double.pi / 2;
         break;
-    case UIImageOrientation.down, UIImageOrientation.downMirrored:
-        radians = M_PI;
+    case UIImage.Orientation.down, UIImage.Orientation.downMirrored:
+        radians = Double.pi;
         break;
     }
     
-    if radians == 0.0 || radians == M_PI {
+    if radians == 0.0 || radians == Double.pi {
         rotatedSize = imageSize
     }else{
         rotatedSize = CGSize(width: imageSize.height, height: imageSize.width)
@@ -38,7 +38,7 @@ func CGImageOrientation(_ originalCGImage: CGImage, orientation: UIImageOrientat
     UIGraphicsBeginImageContextWithOptions(rotatedSize, false, 1.0)
     let rotatedContext = UIGraphicsGetCurrentContext()
     
-    if radians == 0.0 || radians == M_PI { // 0 or 180 degrees
+    if radians == 0.0 || radians == Double.pi { // 0 or 180 degrees
         rotatedContext?.translateBy(x: rotatedCenterX, y: rotatedCenterY)
         if radians == 0.0 {
             rotatedContext?.scaleBy(x: 1.0, y: -1.0)
@@ -46,7 +46,7 @@ func CGImageOrientation(_ originalCGImage: CGImage, orientation: UIImageOrientat
             rotatedContext?.scaleBy(x: -1.0, y: 1.0)
         }
         rotatedContext?.translateBy(x: -rotatedCenterX, y: -rotatedCenterY)
-    }else if radians == M_PI_2 || radians == -M_PI_2 { // +/- 90 degrees
+    }else if radians == Double.pi / 2 || radians == -Double.pi / 2 { // +/- 90 degrees
         rotatedContext?.translateBy(x: rotatedCenterX, y: rotatedCenterY)
         rotatedContext?.rotate(by: CGFloat(radians))
         rotatedContext?.scaleBy(x: 1.0, y: -1.0)
